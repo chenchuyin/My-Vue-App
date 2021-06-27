@@ -1,0 +1,14 @@
+/dist/*
+.local
+.output.js
+*.log 
+/node_modules/**
+/src/assets/**
+LICENSE
+**/*.svg
+**/*.sh
+**/*.png
+.yarn-error.log
+
+
+/public/*

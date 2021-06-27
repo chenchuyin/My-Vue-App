@@ -1,0 +1,11 @@
+{
+    "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+    "plugins": ["stylelint-order"],
+    "rules": {
+        "indentation": [4, { "except": ["block"] }],
+        "declaration-colon-space-after": "always",
+        "declaration-colon-space-before": "never",
+        "no-descending-specificity": null
+    },
+    "ignoreFiles": ["**/*.js", "**/*.jsx", "**/*.tsx", "**/*.ts", "**/*.json"]
+}
