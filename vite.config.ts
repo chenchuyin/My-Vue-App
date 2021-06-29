@@ -1,14 +1,54 @@
-// import type { UserConfig, ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-// import { resolve } from 'path'
+import { UserConfig, ConfigEnv } from 'vite'
+import { resolve } from 'path'
 
-// const resolvePath = (path: string) => resolve(path)
+const root: string = process.cwd()
 
-// console.log(resolve)
+const resolvePath = (dir: string): any => resolve(__dirname, '.', dir)
 
-// https://vitejs.dev/config/
-export default () => {
+const alias: Array<{ find: string | RegExp; replacement: string }> = [
+    { find: '/@', replacement: resolvePath('src/') },
+    { find: '/@/components', replacement: resolvePath('src/components/') },
+    { find: '/@/views', replacement: resolvePath('src/views/') },
+    { find: '/@/utils', replacement: resolvePath('src/utils/') },
+]
+
+export default ({ mode }: ConfigEnv): UserConfig => {
     return {
+        root,
+        envDir: resolvePath('config'),
+        base: mode === 'production' ? './' : './',
         plugins: [vue()],
+        resolve: {
+            alias,
+        },
+        server: {
+            open: true,
+            host: true,
+            port: 8080,
+            strictPort: false,
+        },
+        build: {
+            outDir: 'build',
+            target: 'es2015',
+            rollupOptions: {
+                output: {
+                    // file: 'bundle.js',
+                    // format: 'cjs',
+                    entryFileNames: '[name]-[hash].[ext]',
+                    chunkFileNames: '[name]-[hash].[ext]',
+                    assetFileNames: '[ext]/[name]-[hash][ext]',
+                },
+            },
+            brotliSize: false,
+            // 消除打包大小超过500kb警告
+            chunkSizeWarningLimit: 1000,
+        },
+        define: {
+            __APP__: {
+                name: 'chenchuyin',
+            },
+            // __INTLIFY_PROD_DEVTOOLS__: false,
+        },
     }
 }
