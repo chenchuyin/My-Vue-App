@@ -29,26 +29,30 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             strictPort: false,
         },
         build: {
-            outDir: 'build',
+            outDir: 'dist',
             target: 'es2015',
             rollupOptions: {
                 output: {
-                    // file: 'bundle.js',
-                    // format: 'cjs',
-                    entryFileNames: '[name]-[hash].[ext]',
-                    chunkFileNames: '[name]-[hash].[ext]',
-                    assetFileNames: '[ext]/[name]-[hash][ext]',
+                    entryFileNames: 'entry/entrance.js',
+                    chunkFileNames: 'chunk/chunk.js',
+                    assetFileNames: 'static/asset.js',
                 },
             },
             brotliSize: false,
             // 消除打包大小超过500kb警告
             chunkSizeWarningLimit: 1000,
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                    drop_debugger: false,
+                },
+            },
         },
         define: {
             __APP__: {
                 name: 'chenchuyin',
             },
-            // __INTLIFY_PROD_DEVTOOLS__: false,
+            __INTLIFY_PROD_DEVTOOLS__: false,
         },
     }
 }

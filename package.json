@@ -11,10 +11,14 @@
         "lint:eslint": "eslint **/* --fix --ext .{ts,js,jsx,tsx,vue}",
         "lint:stylelint": "stylelint src/**/* --fix .{vue,less,css}",
         "clean": "rimraf node_modules",
-        "prepare": "husky install"
+        "postinstall": "husky install"
     },
     "dependencies": {
-        "vue": "^3.1.2"
+        "ant-design-vue": "^2.1.6",
+        "vite-plugin-style-import": "^1.0.1",
+        "vue": "^3.1.2",
+        "vue-i18n": "^8.24.5",
+        "vue-types": "^4.0.0"
     },
     "lint-staged": {
         "*.vue": [

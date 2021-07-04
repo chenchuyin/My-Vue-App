@@ -72,7 +72,5 @@ module.exports = {
                 math: 'always',
             },
         ],
-        // 双峰驼命名格式
-        camelcase: 2,
     },
 }
