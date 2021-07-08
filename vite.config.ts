@@ -18,7 +18,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         root,
         envDir: resolvePath('config'),
         base: mode === 'production' ? './' : './',
-        plugins: [vue()],
         resolve: {
             alias,
         },
@@ -48,6 +47,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
                 },
             },
         },
+        plugins: [vue()],
         define: {
             __APP__: {
                 name: 'chenchuyin',

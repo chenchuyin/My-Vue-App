@@ -1,6 +1,7 @@
 /**
  *  代码提交规范
  */
+
 module.exports = {
     extends: ['@commitlint/config-conventional'],
     rules: {
