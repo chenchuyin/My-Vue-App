@@ -1,6 +1,7 @@
-import vue from '@vitejs/plugin-vue'
+// import vue from '@vitejs/plugin-vue'
 import { UserConfig, ConfigEnv } from 'vite'
 import { resolve } from 'path'
+import { createVitePlugins } from './build/vite/vitePlugs/index'
 
 const root: string = process.cwd()
 
@@ -13,7 +14,8 @@ const alias: Array<{ find: string | RegExp; replacement: string }> = [
     { find: '/@/utils', replacement: resolvePath('src/utils/') },
 ]
 
-export default ({ mode }: ConfigEnv): UserConfig => {
+export default ({ command, mode }: ConfigEnv): UserConfig => {
+    const isbuild = command === 'build'
     return {
         root,
         envDir: resolvePath('config'),
@@ -30,15 +32,14 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         build: {
             outDir: 'dist',
             target: 'es2015',
-            rollupOptions: {
-                output: {
-                    entryFileNames: 'entry/entrance.js',
-                    chunkFileNames: 'chunk/chunk.js',
-                    assetFileNames: 'static/asset.js',
-                },
-            },
+            // rollupOptions: {
+            //     output: {
+            //         // entryFileNames: 'entry/entrance.js',
+            //         // chunkFileNames: 'chunk/chunk.js',
+            //         // assetFileNames: 'static/asset.js',
+            //     },
+            // },
             brotliSize: false,
-            // 消除打包大小超过500kb警告
             chunkSizeWarningLimit: 1000,
             terserOptions: {
                 compress: {
@@ -47,7 +48,15 @@ export default ({ mode }: ConfigEnv): UserConfig => {
                 },
             },
         },
-        plugins: [vue()],
+        css: {
+            preprocessorOptions: {
+                less: {
+                    javascriptEnabled: true,
+                    // modifyVars
+                },
+            },
+        },
+        plugins: createVitePlugins(isbuild),
         define: {
             __APP__: {
                 name: 'chenchuyin',

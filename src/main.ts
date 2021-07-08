@@ -1,4 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { bootstrap } from './core/bootstrap'
 
-createApp(App).mount('#app')
+bootstrap(createApp(App)).then((app) => {
+    app.mount('#app')
+})
