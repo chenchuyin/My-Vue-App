@@ -1,7 +1,10 @@
 // import vue from '@vitejs/plugin-vue'
+
 import { UserConfig, ConfigEnv } from 'vite'
 import { resolve } from 'path'
 import { createVitePlugins } from './build/vite/vitePlugs/index'
+
+import pkg from './package.json'
 
 const root: string = process.cwd()
 
@@ -14,8 +17,11 @@ const alias: Array<{ find: string | RegExp; replacement: string }> = [
     { find: '/@/utils', replacement: resolvePath('src/utils/') },
 ]
 
+const { name, version, author, description } = pkg
+
 export default ({ command, mode }: ConfigEnv): UserConfig => {
     const isbuild = command === 'build'
+    console.log(command, command === 'build')
     return {
         root,
         envDir: resolvePath('config'),
@@ -59,7 +65,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         plugins: createVitePlugins(isbuild),
         define: {
             __APP__: {
-                name: 'chenchuyin',
+                name: name,
+                version,
+                description,
+                author: author.name,
+                email: author.email,
+                url: author.url,
             },
             __INTLIFY_PROD_DEVTOOLS__: false,
         },

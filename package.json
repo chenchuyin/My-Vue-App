@@ -1,7 +1,11 @@
 {
+    "name": "truman-world",
     "version": "0.0.1",
+    "description": "Keep track of your technology stack",
     "author": {
-        "name": "chenchuyin"
+        "name": "chenchuyin",
+        "email": "1611804875@qq.com",
+        "url": "http://www.xxx.com"
     },
     "scripts": {
         "dev": "vite --mode test",
@@ -33,6 +37,7 @@
     },
     "dependencies": {
         "ant-design-vue": "^2.1.6",
+        "moment": "^2.29.1",
         "vue": "^3.1.2",
         "vue-i18n": "^8.24.5",
         "vue-types": "^4.0.0"
@@ -43,6 +48,7 @@
         "@types/node": "^15.12.4",
         "@typescript-eslint/eslint-plugin": "^4.28.0",
         "@typescript-eslint/parser": "^4.28.0",
+        "@vitejs/plugin-legacy": "^1.4.3",
         "@vitejs/plugin-vue": "^1.2.3",
         "@vitejs/plugin-vue-jsx": "^1.1.6",
         "@vue/compiler-sfc": "^3.0.5",
@@ -65,6 +71,7 @@
         "stylelint-order": "^4.1.0",
         "typescript": "^4.3.2",
         "vite": "^2.3.8",
+        "vite-plugin-html": "^2.0.7",
         "vite-plugin-style-import": "^1.0.1",
         "vue-eslint-parser": "^7.6.0",
         "vue-tsc": "^0.0.24"

@@ -18,9 +18,9 @@ module.exports = {
         },
     },
     extends: [
+        'prettier',
         'plugin:vue/vue3-recommended',
         'plugin:@typescript-eslint/recommended',
-        'prettier',
         'plugin:prettier/recommended',
     ],
     rules: {
@@ -51,7 +51,8 @@ module.exports = {
             },
         ],
         'space-before-function-paren': 'off',
-
+        endOfLine: 'off',
+        semi: 'off',
         'vue/attributes-order': 'off',
         'vue/one-component-per-file': 'off',
         'vue/html-closing-bracket-newline': 'off',

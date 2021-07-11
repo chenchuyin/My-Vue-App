@@ -5,6 +5,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+
 import HelloWorld from '/@/views/HelloWorld.vue'
 
 export default defineComponent({

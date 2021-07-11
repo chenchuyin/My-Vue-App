@@ -10,8 +10,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, reactive, toRefs } from 'vue'
-import { Radio } from 'ant-design-vue'
+import { ref, defineComponent, reactive, toRefs, getCurrentInstance } from 'vue'
 
 let labelArray = [
     {
@@ -22,22 +21,20 @@ let labelArray = [
 
 export default defineComponent({
     name: 'HelloWorld',
-    components: {
-        aRadio: Radio,
-    },
     props: {
         msg: {
             type: String,
             required: true,
         },
     },
-    setup: () => {
+    setup() {
         const count = ref(0)
         let mapList = labelArray.map((v) => v)
-
         const data = reactive({
             checked: true,
         })
+
+        console.log(getCurrentInstance())
 
         return { ...toRefs(data), count, mapList, value1: 'a' }
     },
