@@ -63,6 +63,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             },
         },
         plugins: createVitePlugins(isbuild),
+
         define: {
             __APP__: {
                 name: name,

@@ -32,11 +32,12 @@ export default defineComponent({
         let mapList = labelArray.map((v) => v)
         const data = reactive({
             checked: true,
+            value1: 'a',
         })
 
         console.log(getCurrentInstance())
 
-        return { ...toRefs(data), count, mapList, value1: 'a' }
+        return { ...toRefs(data), count, mapList }
     },
 })
 </script>

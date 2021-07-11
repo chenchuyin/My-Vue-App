@@ -1,4 +1,7 @@
+import { Plugin } from 'vite'
+
 import styleImport from 'vite-plugin-style-import'
+
 const styleImportPlugin = styleImport({
     libs: [
         {
@@ -9,7 +12,7 @@ const styleImportPlugin = styleImport({
             },
         },
     ],
-})
+}) as Plugin
 
 export function createStyleImoprtPlugin(isBuild: Boolean) {
     return isBuild ? styleImportPlugin : []
