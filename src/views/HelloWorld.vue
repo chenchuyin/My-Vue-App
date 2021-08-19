@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, reactive, toRefs, getCurrentInstance } from 'vue'
+import { ref, defineComponent, reactive, toRefs } from 'vue'
 
 let labelArray = [
     {
@@ -34,8 +34,6 @@ export default defineComponent({
             checked: true,
             value1: 'a',
         })
-
-        console.log(getCurrentInstance())
 
         return { ...toRefs(data), count, mapList }
     },
