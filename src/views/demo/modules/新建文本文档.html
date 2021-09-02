@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <canvas id="canvas" width="800" height="950" style="border: 1px solid #d3d3d3;margin-top: 10px">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+    <script>
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const PI = Math.PI;
+
+        const number = 2;//画4个外圆；
+        const reduceRadio = 15;//递减半径；
+
+        const maxRadius = 80;//最大半径
+        const minRadio = maxRadius - number * reduceRadio;
+
+        const translateX = 300;//canvas移动位置
+        const translateY = 200;
+
+        //canvas移动位置
+        ctx.translate(translateX, translateY);
+
+        //画所有圆
+        function drawAllOuterCircle(number, reduceRadio, maxRadius) {
+
+            //画虚线
+            ctx.setLineDash([2, 2]);
+
+            for (let i = 0; i < number; i++) {
+                ctx.beginPath();
+
+                //半径递减
+                ctx.arc(0, 0, maxRadius - i * reduceRadio, 0, 2 * PI);
+
+                if (i + n == 4) {
+                    ctx.strokeStyle = 'red';
+                } else {
+                    ctx.strokeStyle = 'black';
+                }
+
+                ctx.stroke();
+                ctx.closePath();
+
+            }
+
+            //重置
+            ctx.restore();
+
+            //最里面小圆
+            ctx.beginPath();
+            ctx.arc(0, 0, maxRadius - number * reduceRadio, 0, 2 * PI);
+            ctx.fillStyle = "red";
+            ctx.fill();
+            ctx.closePath();
+
+            ctx.restore();
+        }
+
+        drawAllOuterCircle(number, reduceRadio, maxRadius);
+
+
+
+        //画分割直线
+        const lineNum = 8;//分割线条数
+        const minAngel = 2 * PI / lineNum;//最小角度
+
+        function drawSplitLine(lineNum, maxRadius) {
+            for (let i = 0; i < lineNum; i++) {
+                ctx.setLineDash([]);
+
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(0, maxRadius);
+                ctx.strokeStyle = 'black';
+                ctx.stroke();
+
+                //旋转
+                ctx.rotate(2 * PI / lineNum);
+                ctx.closePath();
+            }
+        }
+
+        drawSplitLine(lineNum, maxRadius);
+
+
+
+        //画阴影部分
+        function drawShadowPanel(ceilMouseRadio, floorMouseRadio, ceilMouseAngel, floorMouseAngel) {
+
+            //清屏
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, ceilMouseRadio + reduceRadio, 0, 2 * PI);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.closePath();
+
+            //调试: 先画一个大的绿色扇形
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, ceilMouseRadio, floorMouseAngel, ceilMouseAngel);
+            ctx.fillStyle = "green";
+            ctx.fill();
+            ctx.closePath();
+
+            //再画一个小的白色扇形 覆盖 大的扇形, 视觉上形成一个弧形
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, floorMouseRadio, floorMouseAngel, ceilMouseAngel);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        const maxN = (maxRadius - minRadio) / reduceRadio;
+        var n;
+
+
+        //获取ceilMouseRadio,floorMouseAngel,ceilMouseAngel
+
+        //获取canvas 的 位移
+        const canvasX = canvas.getBoundingClientRect().left + document.documentElement.scrollLeft + translateX;
+        const canvasY = canvas.getBoundingClientRect().top + document.documentElement.scrollTop + translateY;
+
+        function getMouseDetail(mouseX, mouseY) {
+            //利用勾股定理 算出鼠标 离 canvas原点的距离
+            let mouseRadio = Math.sqrt(Math.pow(mouseX - canvasX, 2) + Math.pow(mouseY - canvasY, 2));
+
+            //因为 cavas原点已经移动到 100 100, 判断鼠标是否在圆圈内
+            if (mouseRadio > maxRadius || mouseRadio <= minRadio) {
+                return { ceilMouseRadio: 0, floorMouseRadio: 0, floorMouseAngel: 0, ceilMouseAngel: 0 };
+            }
+
+            //计算鼠标半径和最小半径的比例,画阴影块的大小半径 reduceRadio:15
+            n = Math.ceil((mouseRadio - minRadio) / reduceRadio);
+
+            let ceilMouseRadio = minRadio + n * reduceRadio;
+            let floorMouseRadio = minRadio + (n - 1) * reduceRadio;
+
+            //角度
+            let mouseAngel;
+
+            if (mouseX - canvasX < 0) {
+                //计算当前鼠标 相对原点的的弧度值 , x轴 顺时针
+
+                // 比如 Math.atan(1)/Math.PI*180 是 45度
+                mouseAngel = Math.atan((mouseY - canvasY) / (mouseX - canvasX)) + PI;
+            } else {
+                mouseAngel = Math.atan((mouseY - canvasY) / (mouseX - canvasX));
+            }
+
+            // 计算当前鼠标 有多少个象限
+            let m = Math.ceil(mouseAngel / minAngel);
+
+            let floorMouseAngel = (m - 1) * minAngel;
+            let ceilMouseAngel = m * minAngel;
+
+            return { ceilMouseRadio, floorMouseRadio, floorMouseAngel, ceilMouseAngel };
+        }
+
+        //监听事件画图
+        canvas.addEventListener('mousemove', (e) => {
+            let mouseX = e.pageX;
+            let mouseY = e.pageY;
+
+            getMouseDetail(mouseX, mouseY);
+
+            let mouseDetail = getMouseDetail(mouseX, mouseY);
+            let { ceilMouseRadio, floorMouseRadio, floorMouseAngel, ceilMouseAngel } = mouseDetail;
+
+
+            if (ceilMouseRadio) {
+                //先画阴影,
+                drawShadowPanel(ceilMouseRadio, floorMouseRadio, ceilMouseAngel, floorMouseAngel);
+                //再画圆圈
+                drawAllOuterCircle(number, reduceRadio, maxRadius);
+                drawSplitLine(lineNum, maxRadius);
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
