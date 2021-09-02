@@ -8,13 +8,13 @@ import pkg from './package.json'
 
 const root: string = process.cwd()
 
-const resolvePath = (dir: string): any => resolve(__dirname, '.', dir)
+const resolvePath = (dir: string): string => resolve(__dirname, '.', dir)
 
 const alias: Array<{ find: string | RegExp; replacement: string }> = [
-    { find: '/@', replacement: resolvePath('src/') },
-    { find: '/@/components', replacement: resolvePath('src/components/') },
-    { find: '/@/views', replacement: resolvePath('src/views/') },
-    { find: '/@/utils', replacement: resolvePath('src/utils/') },
+    // /@/xxxx => src/xxxx
+    { find: /\/@\//, replacement: resolvePath('src') + '/' },
+    // /#/xxxx => types/xxxx
+    { find: /\/#\//, replacement: resolvePath('type') + '/' },
 ]
 
 const { name, version, author, description } = pkg
@@ -24,7 +24,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     console.log(command, command === 'build')
     return {
         root,
-        envDir: resolvePath('config'),
         base: mode === 'production' ? './' : './',
         resolve: {
             alias,
