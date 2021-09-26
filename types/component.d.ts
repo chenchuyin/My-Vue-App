@@ -5,9 +5,6 @@
 declare module 'vue' {
     export interface GlobalComponents {
         Amap: typeof import('/@/views/demo/Amap.vue')['default']
-    }
-
-    export interface CustomComponents {
         Flow: typeof import('/@/views/demo/Flow.vue')['default']
         FlowEchart: typeof import('/@/views/demo/FlowEchart.vue')['default']
         HelloWorld: typeof import('/@/views/HelloWorld.vue')['default']

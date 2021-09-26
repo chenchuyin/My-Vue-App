@@ -14,6 +14,6 @@ const styleImportPlugin = styleImport({
     ],
 }) as Plugin
 
-export function createStyleImoprtPlugin(isBuild: Boolean) {
+export function createStyleImoprtPlugin(isBuild: Boolean = true) {
     return isBuild ? styleImportPlugin : []
 }
