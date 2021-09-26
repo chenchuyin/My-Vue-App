@@ -2,18 +2,18 @@
 <template>
     <div class="flowChart">
         <a-input-number v-model="number" class="number_ipt" :min="1" :max="10" @change="initChart" />
-        <div class="content" ref="content">
+        <div ref="content" class="content">
             <div class="item first">
                 <div class="block">
                     <span class="line" :style="{ right: -itemLineWidth + 'px', width: itemLineWidth + 'px' }"></span>
                 </div>
             </div>
             <div class="item">
-                <div class="block" v-for="(item, i) in number" :key="i">
+                <div v-for="(item, i) in number" :key="i" class="block">
                     <span class="line-l" :style="{ left: -itemLineWidth + 'px', width: itemLineWidth + 'px' }">
                         <span
-                            class="vertical-line"
                             v-show="!(i + 1 === number) && isShow(i)"
+                            class="vertical-line"
                             :style="{ height: itemMargin * 2 + 'px' }"
                         ></span>
                     </span>
@@ -21,18 +21,18 @@
                 </div>
             </div>
             <div class="item">
-                <div class="block" v-for="(item, i) in number" :key="i">
+                <div v-for="(item, i) in number" :key="i" class="block">
                     <span class="line-l" :style="{ left: -itemLineWidth + 'px', width: itemLineWidth + 'px' }"></span>
                     <span class="line-r" :style="{ right: -itemLineWidth + 'px', width: itemLineWidth + 'px' }"></span>
                 </div>
             </div>
             <div class="item">
-                <div class="block" v-for="(item, i) in number" :key="i">
+                <div v-for="(item, i) in number" :key="i" class="block">
                     <span class="line-l" :style="{ left: -itemLineWidth + 'px', width: itemLineWidth + 'px' }"></span>
                     <span class="line-r" :style="{ right: -itemLineWidth + 'px', width: itemLineWidth + 'px' }">
                         <span
-                            class="vertical-line"
                             v-show="!(i + 1 === number) && isShow(i)"
+                            class="vertical-line"
                             :style="{ height: itemMargin * 2 + 'px' }"
                         ></span>
                     </span>
@@ -48,7 +48,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
     name: 'FlowEchart',
     components: {},
     setup() {
@@ -84,7 +86,7 @@ export default {
             console.log(this.itemLineWidth, this.itemMargin)
         },
     },
-}
+})
 </script>
 
 <style scoped lang="less">

@@ -6,21 +6,23 @@ import Components from 'unplugin-vue-components/vite'
 
 import { visualizer } from 'rollup-plugin-visualizer'
 
-// import type { Plugin } from 'vite'
+import type { Plugin } from 'vite'
 
 import { createHtmlTemplate } from './html'
 import { createImageMinPlugin } from './imagemin'
 import { createStyleImoprtPlugin } from './styleImport'
 
-export const createVitePlugins = (isBuild: boolean) => {
+export const createVitePlugins = (isBuild: boolean): (Plugin | Plugin[])[] => {
+    console.log('build-State', isBuild)
     return [
         vue(),
         vueJsx(),
-        createStyleImoprtPlugin(),
+        legacy(),
+        visualizer(),
+
         createHtmlTemplate(),
-        isBuild && legacy(),
-        isBuild && visualizer(),
-        isBuild && createImageMinPlugin(),
+        createImageMinPlugin(),
+        createStyleImoprtPlugin(),
         // https://github.com/antfu/unplugin-vue-components
         Components({
             // allow auto load markdown components under `./src/components/`
