@@ -1,7 +1,6 @@
 // import vue from '@vitejs/plugin-vue'
-
-import { UserConfig, ConfigEnv } from 'vite'
 import { resolve } from 'path'
+import { UserConfig, ConfigEnv } from 'vite'
 import { createVitePlugins } from './build/vite/vitePlugs/index'
 
 import pkg from './package.json'
@@ -29,7 +28,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             alias,
         },
         server: {
-            open: true,
             host: true,
             port: 8080,
             strictPort: false,
