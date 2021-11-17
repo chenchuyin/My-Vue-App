@@ -35,13 +35,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         build: {
             outDir: 'dist',
             target: 'es2015',
-            // rollupOptions: {
-            //     output: {
-            //         // entryFileNames: 'entry/entrance.js',
-            //         // chunkFileNames: 'chunk/chunk.js',
-            //         // assetFileNames: 'static/asset.js',
-            //     },
-            // },
             brotliSize: false,
             chunkSizeWarningLimit: 1000,
             terserOptions: {
