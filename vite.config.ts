@@ -20,7 +20,7 @@ const { name, version, author, description } = pkg
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
     const isbuild = command === 'build'
-    console.log(command, command === 'build')
+    // console.log(command, command === 'build')
     return {
         root,
         base: mode === 'production' ? './' : './',
@@ -35,13 +35,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         build: {
             outDir: 'dist',
             target: 'es2015',
-            // rollupOptions: {
-            //     output: {
-            //         // entryFileNames: 'entry/entrance.js',
-            //         // chunkFileNames: 'chunk/chunk.js',
-            //         // assetFileNames: 'static/asset.js',
-            //     },
-            // },
             brotliSize: false,
             chunkSizeWarningLimit: 1000,
             terserOptions: {
@@ -60,10 +53,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             },
         },
         plugins: createVitePlugins(isbuild),
-
         define: {
             __APP__: {
-                name: name,
+                name,
                 version,
                 description,
                 author: author.name,

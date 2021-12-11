@@ -4,12 +4,9 @@
 
 declare module 'vue' {
     export interface GlobalComponents {
-        Amap: typeof import('/@/views/demo/Amap.vue')['default']
-        Flow: typeof import('/@/views/demo/Flow.vue')['default']
-        FlowEchart: typeof import('/@/views/demo/FlowEchart.vue')['default']
-        HelloWorld: typeof import('/@/views/HelloWorld.vue')['default']
+        App: typeof import('D:/work/My-Vue-App/src/App.vue')['default']
+        HelloWorld: typeof import('D:/work/My-Vue-App/src/views/HelloWorld.vue')['default']
     }
 }
 
-// eslint-disable-next-line
-export { }
+export {}
