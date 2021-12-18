@@ -6,6 +6,7 @@ declare module 'vue' {
     export interface GlobalComponents {
         App: typeof import('D:/work/My-Vue-App/src/App.vue')['default']
         HelloWorld: typeof import('D:/work/My-Vue-App/src/views/HelloWorld.vue')['default']
+        Login: typeof import('D:/work/My-Vue-App/src/views/login/login.vue')['default']
     }
 }
 
