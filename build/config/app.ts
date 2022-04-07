@@ -1,6 +1,6 @@
 import type { App, Plugin } from 'vue'
 
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 const __APP_INFO: Application = {
     name: __APP__.name,
@@ -9,7 +9,7 @@ const __APP_INFO: Application = {
     author: __APP__.author,
     email: __APP__.email,
     url: __APP__.url,
-    lastBuildTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+    lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 }
 
 declare module '@vue/runtime-core' {
