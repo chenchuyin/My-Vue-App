@@ -5,7 +5,6 @@ const title = '楚门的世界'
     <div id="app">
         {{ title }}
         <Title />
-        <a-button type="primary">Primary Button</a-button>
     </div>
 </template>
 
